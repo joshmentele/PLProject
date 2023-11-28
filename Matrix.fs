@@ -19,8 +19,8 @@ module Matrices
             let result = new Matrix(left.rows, left.cols)
 
             // add matrix values
-            for i = 0 to left.rows do
-                for j = 0 to left.cols do
+            for i = 0 to left.rows - 1 do
+                for j = 0 to left.cols - 1 do
                     result.Values[i, j] <- left.Values[i, j] + right.Values[i, j]
 
             // return result
