@@ -2,17 +2,18 @@
 module Program
 
 open Matrices
+open Manager
 
 [<EntryPoint>]
 let main args =
-    let m1 = new Matrix(3, 2)
-    let m2 = new Matrix(3, 2)
+    let manager = MatrixManager
 
-    m1.SetMatrix [1.0; 2.0; 3.0; 4.0; 5.0; 6.0]
-    m2.SetMatrix [2.0; 3.0; 4.0; 5.0; 6.0; 7.0]
+    let menu: string = ("1.) Create Matrix\n" + 
+                        "2.) Print Matrix\n" + 
+                        "3.) List Matrices\n" +
+                        "4.) Add Matrices\n" +
+                        "5.) Multiply Matrices\n" +
+                        "6.) Multiply Matrix by Scalar")
 
-    printfn "Printing added matrix..."
-
-    Matrix.Add(m1, m2).PrintMatrix()
     0
     
