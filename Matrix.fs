@@ -6,16 +6,6 @@ type Matrix(rows : int, cols : int) =
     member private this.rows = rows
     member private this.cols = cols
 
-    // public property to get values
-    member this.Values
-        with get() = values
-    // public property to get rows
-    member this.Rows
-        with get() = rows
-
-    // public property to get columns
-    member this.Cols
-        with get() = cols
 
     /// <summary>
     /// Author: Josh Mentele
@@ -23,7 +13,7 @@ type Matrix(rows : int, cols : int) =
     /// </summary>
     /// <param name="valuesIn">The values to store in the matrix</param>
     /// <returns>True if successful, false otherwise</returns>
-    member this.SetMatrix(valuesIn : list<double>) : bool =
+    member this.SetValues(valuesIn : list<double>) : bool =
         if values.Length <> this.rows * this.cols then
             false
         else
@@ -31,16 +21,32 @@ type Matrix(rows : int, cols : int) =
                 for j = 0 to cols - 1 do
                     values.[i, j] <- valuesIn.[i * cols + j]
             true
-    
+
     /// <summary>
     /// Author: Josh Mentele
-    /// Description: Prints the matrix to the console.
-    /// </summary>
-    member this.PrintMatrix() =
+    /// Description: Prints the matrix to a string.</summary>
+    /// <param name="unit"></param>
+    /// <returns>The matrix string representation</returns>
+    override this.ToString() =
+        let mutable result = ""
         // loop rows
         for i = 0 to rows - 1 do
-            printf "Row %d: " i
+            result <- $"| {result}"
             // loop columns
             for j = 0 to cols - 1 do
-                printf "%f " values.[i, j]
-            printfn ""
+                result <- $"{values.[i, j] }"
+            result <- $"{result}|\n"
+        result
+    
+    // public property to get values
+    member this.Values
+        with get() = values
+    
+    
+    // public property to get rows
+    member this.Rows
+        with get() = rows
+
+    // public property to get columns
+    member this.Cols
+        with get() = cols

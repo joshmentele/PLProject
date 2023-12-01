@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Matrix.fs" />
-    <Compile Include="MatrixManipulator.fs" />
+    <Compile Include="MatrixCalculator.fs" />
     <Compile Include="MatrixManager.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
