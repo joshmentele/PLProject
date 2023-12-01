@@ -1,5 +1,0 @@
-namespace Matrices
-
-type MatrixManipulator =
-
-    
