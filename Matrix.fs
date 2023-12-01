@@ -45,8 +45,8 @@ type Matrix(rows : int, cols : int) =
     
     // public property to get rows
     member this.Rows
-        with get() = rows
+        with get(): int = rows
 
     // public property to get columns
     member this.Cols
-        with get() = cols
+        with get() : int = cols

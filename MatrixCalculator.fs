@@ -3,7 +3,7 @@ namespace Matrices
 type MatrixCalculator =
     static member Add(left: Matrix, right: Matrix) : Matrix =
         if left.Rows <> right.Rows || left.Cols <> right.Cols then
-            raise (invalidOp "The dimensions of the two matrices did not match, so they cannot be added")
+            raise (System.InvalidOperationException "The dimensions of the two matrices did not match, so they cannot be added")
 
         // store result
         let result = new Matrix(left.Rows, left.Cols)
