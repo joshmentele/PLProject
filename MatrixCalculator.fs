@@ -1,6 +1,15 @@
 namespace Matrices
 
 type MatrixCalculator =
+
+    /// <summary>
+    /// Author: Josh Mentele
+    /// Description: This function adds two matrices together, returning the result. If the dimensions of the two matrices
+    /// do not match, an exception is thrown.
+    /// </summary>
+    /// <param name="left">The first matrix to add.</param>
+    /// <param name="right">The second matrix to add.</param>
+    /// <returns>The resulting matrix.</returns>
     static member Add(left: Matrix, right: Matrix) : Matrix =
         if left.Rows <> right.Rows || left.Cols <> right.Cols then
             raise (System.InvalidOperationException "The dimensions of the two matrices did not match, so they cannot be added")

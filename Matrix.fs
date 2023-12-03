@@ -9,32 +9,30 @@ type Matrix(rows : int, cols : int) =
 
     /// <summary>
     /// Author: Josh Mentele
-    /// Description: Sets the values of the matrix (here we use a 1D list to fill)
+    /// Description: Sets the values of the matrix (here we use a 1D array to fill)
     /// </summary>
     /// <param name="valuesIn">The values to store in the matrix</param>
-    /// <returns>True if successful, false otherwise</returns>
-    member this.SetValues(valuesIn : list<double>) : bool =
-        if values.Length <> this.rows * this.cols then
-            false
+    member this.SetValues(valuesIn : double array) =
+        if valuesIn.Length <> this.rows * this.cols then
+            raise (System.InvalidOperationException "An incorrect number of values were supplied for the matrix")
         else
             for i = 0 to rows - 1 do
                 for j = 0 to cols - 1 do
                     values.[i, j] <- valuesIn.[i * cols + j]
-            true
 
     /// <summary>
     /// Author: Josh Mentele
     /// Description: Prints the matrix to a string.</summary>
     /// <param name="unit"></param>
     /// <returns>The matrix string representation</returns>
-    override this.ToString() =
+    override this.ToString() : string =
         let mutable result = ""
         // loop rows
         for i = 0 to rows - 1 do
-            result <- $"| {result}"
+            result <- $"{result}| "
             // loop columns
             for j = 0 to cols - 1 do
-                result <- $"{values.[i, j] }"
+                result <- $"{result}{values.[i, j].ToString().PadLeft(8)} "
             result <- $"{result}|\n"
         result
     

@@ -1,17 +1,75 @@
 ﻿
 module Program
-
-open Matrices
 open Manager
 open System
 
 
-let printMatrix() = 
+/// <summary>
+/// Author: Josh Mentele
+/// Description: This function handles the print matrix menu option, prompting for the index of
+/// the matrix to print, and outputting the result.
+/// </summary>
+/// <param name="manager">The matrix manager.</param>
+let printMatrix(manager: MatrixManager) : unit = 
+    // prompt for index
     printf "Enter the matrix index:> "
 
-    // get input
+    try
+        // get input
+        let index = System.Int32.Parse(Console.ReadLine().Trim())
+        manager.PrintMatrix(index)
+    with
+    | :? FormatException -> printfn "Please input valid numbers\n"
+    | :? InvalidOperationException as ex -> printfn "%s\n" ex.Message
 
 
+/// <summary>
+/// Author: Josh Mentele
+/// Description: This function handles the create matrix menu option, prompting for the number
+/// of rows and cols and the matrix's values, and stores the matrix in the manager.
+/// </summary>
+/// <param name="manager"></param>
+let createMatrix(manager: MatrixManager) : unit =
+
+    // prompt rows
+    printf "Enter the number of rows:> "
+
+    try
+        let rows = System.Int32.Parse(Console.ReadLine().Trim())
+        
+        // prompt for cols
+        printf "Enter the number of cols:> "
+
+        let cols = System.Int32.Parse(Console.ReadLine().Trim())
+
+        // prompt for values
+        printf "Enter the values for the matrix (there should be %d values):> " (rows * cols)
+
+        let mutable values = [||]
+
+        // get values from user
+        while values.Length <> rows * cols do
+            let input = Console.ReadLine().Trim()
+
+            // split up input
+            let inputSplit = input.Split " "
+
+            // convert to integer values
+            for i in inputSplit do
+                values <- Array.append values [|System.Double.Parse(i)|]
+        
+        manager.CreateMatrix(rows, cols, values)
+    with
+    | :? FormatException -> printfn "Please input valid numbers\n"
+    | :? InvalidOperationException as ex -> printfn "%s\n" ex.Message
+
+
+/// <summary>
+/// Author: Josh Mentele
+/// Description: This function handles the menu option for adding matrices, prompting for the matrix indices
+/// and printing out the result.
+/// </summary>
+/// <param name="manager">The matrix manager.</param>
 let addMatrices(manager: MatrixManager) : unit =
     printf "Enter the first matrix index:> "
 
@@ -26,8 +84,8 @@ let addMatrices(manager: MatrixManager) : unit =
 
         printfn "%s" (manager.AddMatrices(idx1, idx2).ToString())
     with
-    | :? FormatException -> printfn "Please input a valid integer"
-    | :? InvalidOperationException as ex -> printfn "%s" ex.Message
+    | :? FormatException -> printfn "Please input a valid integer\n"
+    | :? InvalidOperationException as ex -> printfn "%s\n" ex.Message
 
 
 [<EntryPoint>]
@@ -40,7 +98,7 @@ let main args =
                         "4.) Add Matrices\n" +
                         "5.) Subtract Matrices\n" +
                         "6.) Multiply Matrices\n" +
-                        "7.) Multiply Matrix by Scalar\n" +
+                        "7.) Multiply Matrix by Scalar\n" + // NOTE: Do this option in parallel
                         "0.) Quit\n" +
                         "Enter Selection:> ")
 
@@ -55,16 +113,19 @@ let main args =
         // get selection
         let input = Console.ReadLine().Trim()
 
+        // parse input
         let (success, i) = System.Int32.TryParse input
         selection <- i
 
         if not success then
-            printfn "Please select a valid menu options.\n"
+            printfn "Please select a valid menu option.\n"
         else
             match selection with
             | 0 -> printfn "Exiting..."
-            | 1 -> printMatrix()
-            | 2 -> manager.PrintMatrices()
+            | 1 -> createMatrix(manager)
+            | 2 -> printMatrix(manager)
+            | 3 -> manager.PrintMatrices()
+            | 4 -> addMatrices(manager)
             | _ -> printfn "Please select a valid menu option.\n"
 
     0
