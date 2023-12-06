@@ -72,3 +72,48 @@ type MatrixManager() =
 
         // add to list
         matrices <- Array.append matrices [|m|]
+
+
+    /// <summary>
+    /// Author: Tobias Lynch
+    /// Description: This function multiplies a given matrix by a given scalar and stores the result.
+    /// </summary>
+    /// <param name="id">The index of the matrix to be multiplied.</param>
+    /// <param name="scalar">The scalar to multiply by.</param>
+    /// <returns>The resulting matrix.</returns>
+    member this.ScalarMult(id : int, scalar : double): Matrix =
+
+        //Check matrix exists
+        if (Array.length matrices) <= id then
+            raise (System.InvalidOperationException "Cannot multiply the matrix as it does not exist")
+        
+        //Perform operation
+        let result: Matrix = MatrixCalculator.ScalarMult(matrices[id], scalar)
+
+        //Store result
+        matrices <- Array.append matrices [|result|]
+
+        //Return result
+        result
+    
+    
+    /// <summary>
+    /// Author: Tobias Lynch
+    /// Description: This function multiplies a given matrix by another given matrix and stores the result.
+    /// </summary>
+    /// <param name="idx1">The index of the first matrix to be multiplied.</param>
+    /// <param name="idx2">The index of the second matrix to be multiplied.</param>
+    /// <returns>The resulting matrix.</returns>
+    member this.MatrixMult(idx1: int, idx2: int): Matrix =
+        //Check matricies exist
+        if (Array.length matrices) <= idx1 || (Array.length matrices) <= idx2 then
+            raise (System.InvalidOperationException "Cannot add the two matices because at least one does not exist")
+
+        //Perform operation
+        let result: Matrix = MatrixCalculator.MatrixMult(matrices[idx1], matrices[idx2])
+
+        //Store result
+        matrices <- Array.append matrices [|result|]
+
+        //Return result
+        result
