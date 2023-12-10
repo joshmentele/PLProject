@@ -135,6 +135,30 @@ let multMatricies(manager: MatrixManager) : unit =
     | :? InvalidOperationException as ex -> printfn "%s\n" ex.Message
 
 
+/// <summary>
+/// Author: Zoe Millage
+/// Description: This function handles the menu option for subtracting matrices, 
+/// prompting for the matrix indices and printing the result.
+/// </summary>
+/// <param name="manager">The matrix manager.</param>
+let subMatrices(manager: MatrixManager) : unit =
+    printf "Enter the first matrix index:> "
+
+    try
+        // get input
+        let idx1 = System.Int32.Parse(Console.ReadLine().Trim())
+
+        printf "Enter the second matrix index:> "
+
+        // get input
+        let idx2 = System.Int32.Parse(Console.ReadLine().Trim())
+
+        printfn "%s" (manager.SubMatrices(idx1, idx2).ToString())
+    with
+    | :? FormatException -> printfn "Please input a valid integer\n"
+    | :? InvalidOperationException as ex -> printfn "%s\n" ex.Message
+
+
 [<EntryPoint>]
 let main args =
     let manager = new MatrixManager()
@@ -173,6 +197,7 @@ let main args =
             | 2 -> printMatrix(manager)
             | 3 -> manager.PrintMatrices()
             | 4 -> addMatrices(manager)
+            | 5 -> subMatrices(manager)
             | 6 -> multMatricies(manager)
             | 7 -> multMatrixByScalar(manager)
             | _ -> printfn "Please select a valid menu option.\n"

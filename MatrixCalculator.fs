@@ -81,3 +81,28 @@ type MatrixCalculator =
 
         //Return result
         result
+
+
+        /// <summary>
+    /// Author: Zoe Millage
+    /// Description: Subtracts 1 matrix from another, returning the result. If the dimensions of the two matrices
+    /// do not match, an exception is thrown.
+    /// </summary>
+    /// <param name="left">The matrix to subtract from.</param>
+    /// <param name="right">The matrix to subtract with.</param>
+    /// <returns>The resulting matrix.</returns>
+    static member Sub(left: Matrix, right: Matrix) : Matrix =
+        if left.Rows <> right.Rows || left.Cols <> right.Cols then
+            raise (System.InvalidOperationException "The dimensions of the two matrices did not match, so they cannot be added")
+
+        // store result
+        let result = new Matrix(left.Rows, left.Cols)
+
+        // add matrix values
+        for i = 0 to left.Rows - 1 do
+            for j = 0 to left.Cols - 1 do
+                result.Values[i, j] <- left.Values[i, j] - right.Values[i, j]
+                
+        // return result
+        result
+        

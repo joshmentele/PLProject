@@ -117,3 +117,27 @@ type MatrixManager() =
 
         //Return result
         result
+
+
+    /// <summary>
+    /// Author: Zoe Millage
+    /// Description: This function subtracts two matrices at the given indices. If either doesn't
+    /// exist, an exception is thrown. The resulting matrix is stored in the list of matrices, then returned.
+    /// </summary>
+    /// <param name="idx1">The index of the matrix to subtract from.</param>
+    /// <param name="idx2">The index of the matrix to subtract with.</param>
+    /// <returns>The resulting matrix.</returns>
+    member this.SubMatrices(idx1: int, idx2: int): Matrix = 
+        
+        // check that the two matrices exist
+        if (Array.length matrices) <= idx1 || (Array.length matrices) <= idx2 then
+            raise (System.InvalidOperationException "Cannot add the two matices because at least one does not exist")
+
+        // perform operation
+        let result = MatrixCalculator.Sub(matrices[idx1], matrices[idx2])
+
+        // store result
+        matrices <- Array.append matrices [|result|]
+
+        // return result
+        result
