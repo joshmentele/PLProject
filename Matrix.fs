@@ -20,6 +20,14 @@ type Matrix(rows : int, cols : int) =
                 for j = 0 to cols - 1 do
                     values.[i, j] <- valuesIn.[i * cols + j]
     
+
+    /// <summary>
+    /// Author: Tobias Lynch
+    /// Description: Sets the value of a location in the matrix
+    /// </summary>
+    /// <param name="i">The row of the location</param>
+    /// <param name="j">The column of the location</param>
+    /// <param name="value">The value to be written into the matrix</param>
     member this.SetPos(i : int, j : int, value : double) =
         if i >= rows || j >= cols then
             raise (System.InvalidOperationException "An invalid location was supplied for the matrix")
