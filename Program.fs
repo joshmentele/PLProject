@@ -1,4 +1,10 @@
-﻿
+﻿// Name: Semester Project
+// Authors: Tobias Lynch, Josh Mentele, Zoe Millage
+// Class: CSC-461-M01, Programming Languages, 2023f
+// Date Due: 13 December 2023
+// Description: The entry point of the program; prints the menu and lets the
+//     user perform all the matrix functionalities
+
 module Program
 open Manager
 open System

@@ -1,3 +1,7 @@
+// Authors: Tobias Lynch, Josh Mentele, Zoe Millage
+// Description: Holds the MatrixCalculator class, which handles all 
+//     arithmetic multi-matrix functions
+
 namespace Matrices
 
 type MatrixCalculator =

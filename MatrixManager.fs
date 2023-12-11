@@ -1,3 +1,6 @@
+// Authors: Tobias Lynch, Josh Mentele, Zoe Millage
+// Description: Holds the MatrixManager class, a manager for a set of matrices.
+
 module Manager
 
 open System

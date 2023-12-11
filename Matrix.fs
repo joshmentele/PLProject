@@ -1,3 +1,7 @@
+// Authors: Tobias Lynch, Josh Mentele, Zoe Millage
+// Description: Holds the Matrix class, along with 
+//     functions specific to an individual matrix
+
 namespace Matrices
     
 type Matrix(rows : int, cols : int) =
