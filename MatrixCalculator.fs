@@ -30,32 +30,6 @@ type MatrixCalculator =
         result
 
 
-    /// <summary>
-    /// Author: Tobias Lynch
-    /// Description: This function multiplies a matrix by a scalar, returning the result.
-    /// </summary>
-    /// <param name="matrix">The matrix to multiply.</param>
-    /// <param name="scalar">The scalar to multiply by.</param>
-    /// <returns>The resulting matrix.</returns>
-    static member ScalarMult(matrix: Matrix, scalar: double): Matrix =
-        //Store result
-        let result: Matrix = new Matrix(matrix.Rows,matrix.Cols)
-        //Transform input matrix to array for easier parallelization
-        let tempArr: double array = matrix.ToArray()
-        
-        //Multiply each value in the array by the scalar
-        let arr: double array = tempArr |> Array.Parallel.map(fun x -> x * scalar)
-
-        //Old, serial version of the function
-        (*for i = 0 to matrix.Rows - 1 do
-            for j = 0 to matrix.Cols - 1 do
-                result.Values[i,j] <- matrix.Values[i,j] * scalar*)
-                
-        //Store back to matrix
-        result.SetValues(arr)
-
-        //Return result
-        result
 
     /// <summary>
     /// Author: Tobias Lynch
@@ -87,7 +61,37 @@ type MatrixCalculator =
         result
 
 
-        /// <summary>
+    
+    /// <summary>
+    /// Author: Tobias Lynch
+    /// Description: This function multiplies a matrix by a scalar, returning the result.
+    /// </summary>
+    /// <param name="matrix">The matrix to multiply.</param>
+    /// <param name="scalar">The scalar to multiply by.</param>
+    /// <returns>The resulting matrix.</returns>
+    static member ScalarMult(matrix: Matrix, scalar: double): Matrix =
+        //Store result
+        let result: Matrix = new Matrix(matrix.Rows,matrix.Cols)
+        //Transform input matrix to array for easier parallelization
+        let tempArr: double array = matrix.ToArray()
+        
+        //Multiply each value in the array by the scalar
+        let arr: double array = tempArr |> Array.Parallel.map(fun x -> x * scalar)
+
+        //Old, serial version of the function
+        (*for i = 0 to matrix.Rows - 1 do
+            for j = 0 to matrix.Cols - 1 do
+                result.Values[i,j] <- matrix.Values[i,j] * scalar*)
+                
+        //Store back to matrix
+        result.SetValues(arr)
+
+        //Return result
+        result
+
+
+    
+     /// <summary>
     /// Author: Zoe Millage
     /// Description: Subtracts 1 matrix from another, returning the result. If the dimensions of the two matrices
     /// do not match, an exception is thrown.

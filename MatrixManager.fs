@@ -11,29 +11,6 @@ type MatrixManager() =
     let mutable matrices : Matrix array = [||]
 
 
-    /// <summary>
-    /// Author: Josh Mentele
-    /// Description: This function prints all matrices currently stored.
-    /// </summary>
-    member this.PrintMatrices() : unit =
-        // loop through matrices, print out to screen
-        for i = 0 to (Array.length matrices) - 1 do
-            printfn "Matrix #%d; Rows: %d, Cols: %d\n%s\n" i matrices[i].Rows matrices[i].Cols (matrices[i].ToString())
-
-
-    /// <summary>
-    /// Author: Josh Mentele
-    /// Description: This function prints the matrix at the associated index provided. If it does not exist, an exception is thrown.
-    /// </summary>
-    /// <param name="idx">The index of the matrix to print.</param>
-    member this.PrintMatrix(idx: int) : unit =
-        // check that the matrix exists
-        if idx >= matrices.Length then
-            raise (InvalidOperationException "The matrix does not exist")
-        
-        // print out the matrix
-        printfn "%s" (matrices[idx].ToString())
-
 
     /// <summary>
     /// Author: Josh Mentele
@@ -59,6 +36,7 @@ type MatrixManager() =
         result
 
 
+
     /// <summary>
     /// Author: Josh Mentele
     /// Description: This function creates a matrix with the given dimensions and values, and stores the result.
@@ -75,6 +53,56 @@ type MatrixManager() =
 
         // add to list
         matrices <- Array.append matrices [|m|]
+
+
+    
+    /// <summary>
+    /// Author: Tobias Lynch
+    /// Description: This function multiplies a given matrix by another given matrix and stores the result.
+    /// </summary>
+    /// <param name="idx1">The index of the first matrix to be multiplied.</param>
+    /// <param name="idx2">The index of the second matrix to be multiplied.</param>
+    /// <returns>The resulting matrix.</returns>
+    member this.MatrixMult(idx1: int, idx2: int): Matrix =
+        //Check matricies exist
+        if (Array.length matrices) <= idx1 || (Array.length matrices) <= idx2 then
+            raise (System.InvalidOperationException "Cannot add the two matices because at least one does not exist")
+
+        //Perform operation
+        let result: Matrix = MatrixCalculator.MatrixMult(matrices[idx1], matrices[idx2])
+
+        //Store result
+        matrices <- Array.append matrices [|result|]
+
+        //Return result
+        result
+
+
+
+    /// <summary>
+    /// Author: Josh Mentele
+    /// Description: This function prints all matrices currently stored.
+    /// </summary>
+    member this.PrintMatrices() : unit =
+        // loop through matrices, print out to screen
+        for i = 0 to (Array.length matrices) - 1 do
+            printfn "Matrix #%d; Rows: %d, Cols: %d\n%s\n" i matrices[i].Rows matrices[i].Cols (matrices[i].ToString())
+
+
+
+    /// <summary>
+    /// Author: Josh Mentele
+    /// Description: This function prints the matrix at the associated index provided. If it does not exist, an exception is thrown.
+    /// </summary>
+    /// <param name="idx">The index of the matrix to print.</param>
+    member this.PrintMatrix(idx: int) : unit =
+        // check that the matrix exists
+        if idx >= matrices.Length then
+            raise (InvalidOperationException "The matrix does not exist")
+        
+        // print out the matrix
+        printfn "%s" (matrices[idx].ToString())
+
 
 
     /// <summary>
@@ -99,27 +127,6 @@ type MatrixManager() =
         //Return result
         result
     
-    
-    /// <summary>
-    /// Author: Tobias Lynch
-    /// Description: This function multiplies a given matrix by another given matrix and stores the result.
-    /// </summary>
-    /// <param name="idx1">The index of the first matrix to be multiplied.</param>
-    /// <param name="idx2">The index of the second matrix to be multiplied.</param>
-    /// <returns>The resulting matrix.</returns>
-    member this.MatrixMult(idx1: int, idx2: int): Matrix =
-        //Check matricies exist
-        if (Array.length matrices) <= idx1 || (Array.length matrices) <= idx2 then
-            raise (System.InvalidOperationException "Cannot add the two matices because at least one does not exist")
-
-        //Perform operation
-        let result: Matrix = MatrixCalculator.MatrixMult(matrices[idx1], matrices[idx2])
-
-        //Store result
-        matrices <- Array.append matrices [|result|]
-
-        //Return result
-        result
 
 
     /// <summary>
